@@ -1,1 +1,49 @@
-sfsf
+import matplotlib.pyplot as plt
+import time
+
+# LED Brightness Control Program
+
+# Initialize brightness variables
+brightness = 10  # Max brightness level changed to 10
+min_brightness = 0  # Minimum brightness
+step_size = 1  # Step size for increase/decrease
+
+print("LED Brightness Control System")
+print("Use '+' to increase, '-' to decrease, 'q' to quit.")
+
+def update_plot(brightness):
+    plt.clf()
+    plt.barh(["LED Brightness"], [brightness], color='blue')  # Changed to horizontal bar and blue color
+    plt.xlim(0, 10)  # Adjusted limit to match brightness scale
+    plt.ylabel("LED")
+    plt.xlabel("Brightness Level (0-10)")
+    plt.title("LED Brightness Control")
+    plt.pause(0.1)
+
+plt.ion()
+update_plot(brightness)
+
+while True:
+    # Get user input
+    command = input("Enter command (+/-/q): ")
+
+    if command == '+':
+        if brightness + step_size <= 10:
+            brightness += step_size
+        else:
+            print("Brightness is at maximum!")
+    elif command == '-':
+        if brightness - step_size >= min_brightness:
+            brightness -= step_size
+        else:
+            print("Brightness is at minimum!")
+    elif command == 'q':
+        print("Exiting LED Brightness Control.")
+        break
+    else:
+        print("Invalid command! Use '+' to increase, '-' to decrease, or 'q' to quit.")
+
+    update_plot(brightness)
+
+plt.ioff()
+plt.show()
